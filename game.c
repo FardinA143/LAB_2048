@@ -141,9 +141,9 @@ bool is_terminal(int board[MAX_ROWS][MAX_COLUMNS]){
                 //printf("You have reached your goal!!");
                 return true;
             }
-            else if(can_move_up(board) == false && can_move_down(board) == false 
-            && can_move_right(board) == false && can_move_left(board) == false){
-                //printf("Game is over. No moves left!!");
+            else if (can_move_up(board) == false && can_move_down(board) == false 
+            &&    can_move_right(board) == false && can_move_left(board) == false) {
+                printf("Game is over. No moves left!!"); //debug code, idk it was just here
                 return true;
             }
         //}
@@ -155,25 +155,58 @@ int move_right(int board[MAX_ROWS][MAX_COLUMNS]){
     // @brief Move all numbers in board to the RIGHT, 
     //        merging adjacent and equal values
     // @Returns the aggregated score of all merged values
-    int score = 0;
-    for(int i = 0; i < MAX_ROWS; i++){
-        if (can_move_right(board) == true) {
-            for (int j = MAX_COLUMNS - 1; j <= 0; j--) {
-                //if(can_move_right(board) == true){
-                    if(board[i][j] == board[i][j-1]){
-                        board[i][j] = board[i][j] + board[i][j-1];
-                        score += board[i][j];
-                        board[i][j-1] = 0;
-                    }
-                    else if (board[i][j] = 0){
-                        board[i][j] = board[i][j-1];
-                        board[i][j-1] = 0;
-                    }
-                //}
-            }
+    int score = 0;  // Initialize the score variable to zero
+
+    // print board first. DEBUG
+    printf("Board before move right\n");
+    for (int i = 0; i < MAX_ROWS; i++) {
+        for (int j = 0; j < MAX_COLUMNS; j++) {
+            printf("%d ", board[i][j]);
         }
+        printf("\n");
     }
-    return score;
+    
+    for (int rows = 0; rows < MAX_ROWS; rows++) {
+    
+
+        for (int cols = MAX_COLUMNS-1; cols > 0; cols--) {
+                printf("Value for rows: %d, cols: %d is %d\n", rows, cols, board[rows][cols]);  //DEBUG, remove before release
+                int prev = cols - 1;
+                while (prev > 0 && board[rows][prev] == 0) {
+                    prev--;
+                }
+
+                if (board[rows][cols] == 0) {                
+                    board[rows][cols] = board[rows][prev];
+                    board[rows][prev] = 0;
+                }
+                else if (board[rows][cols] == board[rows][prev]) {
+                    board[rows][cols] = board[rows][cols] + board[rows][prev];
+                    score = score + board[rows][prev];
+                    board[rows][prev] = 0; 
+                } 
+        }
+        // What does this code do?
+        // lines 174-177: Searches for the next non-zero element to the left of the current element
+        // lines 179-181: If the current element is zero, then move the next non-zero element to the current element
+        // lines 183-186: If the next non-zero element is equal to the current element, then merge the two elements
+        // ---------------------------------------------------------------------------
+        // This code should be scalable (increasing board size shouldn't break it)
+        // 
+    
+    
+}
+// DEBUG
+printf("Board after move right\n");
+    for (int i = 0; i < MAX_ROWS; i++) {
+        for (int j = 0; j < MAX_COLUMNS; j++) {
+            printf("%d ", board[i][j]);
+        }
+        printf("\n");
+    }
+    printf("____\n");
+    // DEBUG
+return score;
 }
 
 /*
