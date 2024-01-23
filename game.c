@@ -156,7 +156,7 @@ int move_right(int board[MAX_ROWS][MAX_COLUMNS]){
     //        merging adjacent and equal values
     // @Returns the aggregated score of all merged values
     int score = 0;  // Initialize the score variable to zero
-
+/* 
     // print board first. DEBUG
     printf("Board before move right\n");
     for (int i = 0; i < MAX_ROWS; i++) {
@@ -164,13 +164,13 @@ int move_right(int board[MAX_ROWS][MAX_COLUMNS]){
             printf("%d ", board[i][j]);
         }
         printf("\n");
-    }
+    } */
     
     for (int rows = 0; rows < MAX_ROWS; rows++) {
     
 
         for (int cols = MAX_COLUMNS-1; cols > 0; cols--) {
-                printf("Value for rows: %d, cols: %d is %d\n", rows, cols, board[rows][cols]);  //DEBUG, remove before release
+                // printf("Value for rows: %d, cols: %d is %d\n", rows, cols, board[rows][cols]);  //DEBUG, remove before release
                 int prev = cols - 1;
                 while (prev > 0 && board[rows][prev] == 0) {
                     prev--;
@@ -196,7 +196,7 @@ int move_right(int board[MAX_ROWS][MAX_COLUMNS]){
     
     
 }
-// DEBUG
+/* // DEBUG
 printf("Board after move right\n");
     for (int i = 0; i < MAX_ROWS; i++) {
         for (int j = 0; j < MAX_COLUMNS; j++) {
@@ -205,7 +205,7 @@ printf("Board after move right\n");
         printf("\n");
     }
     printf("____\n");
-    // DEBUG
+    // DEBUG */
 return score;
 }
 
